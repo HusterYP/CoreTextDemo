@@ -13,7 +13,10 @@ class ViewController: UIViewController {
     var datasource: [(String, () -> UIViewController)] = [
         ("CTFramesetter: DynamicHeight", { DynamicHeightViewController() }),
         ("CTFramesetter: CircularText", { CircularTextViewController() }),
-        ("CTFramesetter: MultiColumn", { MultiColumnViewController() })
+        ("CTFramesetter: MultiColumn", { MultiColumnViewController() }),
+        ("CTFrame: Basic", { BasicFrameViewController() }),
+        ("CTFrame: CustomLine", { CustomLineDrawViewController() }),
+        ("CTFrame: HitTestable", { HitTestableFrameViewController() })
     ]
     private let tableView = UITableView(frame: .zero, style: .plain)
 

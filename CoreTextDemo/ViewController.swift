@@ -7,17 +7,65 @@
 
 import UIKit
 
+import UIKit
+
 class ViewController: UIViewController {
+    var datasource: [(String, () -> UIViewController)] = [
+        ("CTFramesetter: DynamicHeight", { DynamicHeightViewController() }),
+        ("CTFramesetter: CircularText", { CircularTextViewController() }),
+        ("CTFramesetter: MultiColumn", { MultiColumnViewController() })
+    ]
+    private let tableView = UITableView(frame: .zero, style: .plain)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        let attr = NSAttributedString(string: "这是第一段文本\n这是第二段文本", attributes: [
-            .font: UIFont.systemFont(ofSize: 16),
-            .foregroundColor: UIColor.black
+        title = "CoreText Examples"
+        view.backgroundColor = .systemBackground
+        setupTableView()
+    }
+
+    private func setupTableView() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-        let framesetter = CTFramesetterCreateWithAttributedString(attr)
-        let path = CGPath(rect: CGRect(x: 0, y: 0, width: 400, height: 600), transform: nil)
-        let frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), path, nil)
-        let range = CTFrameGetStringRange(frame)
-        print(frame, attr.attributedSubstring(from: NSRange(location: range.location, length: range.length)))
+
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+}
+
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    private var titles: [String] {
+        return datasource.map({ $0.0 })
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return titles.count
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let title = titles[indexPath.row]
+        cell.textLabel?.text = title
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let creator = datasource[indexPath.row].1
+        let vc = creator()
+        vc.title = title
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

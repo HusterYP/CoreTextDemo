@@ -16,7 +16,10 @@ class ViewController: UIViewController {
         ("CTFramesetter: MultiColumn", { MultiColumnViewController() }),
         ("CTFrame: Basic", { BasicFrameViewController() }),
         ("CTFrame: CustomLine", { CustomLineDrawViewController() }),
-        ("CTFrame: HitTestable", { HitTestableFrameViewController() })
+        ("CTFrame: HitTestable", { HitTestableFrameViewController() }),
+        ("CTLine: LineJustify", { LineJustifyViewController() }),
+        ("CTLine: PenOffset", { PenOffsetViewController() }),
+        ("CTLine: RunHighligh", { RunHighlightViewController() })
     ]
     private let tableView = UITableView(frame: .zero, style: .plain)
 

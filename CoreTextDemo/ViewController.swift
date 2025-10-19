@@ -19,7 +19,10 @@ class ViewController: UIViewController {
         ("CTFrame: HitTestable", { HitTestableFrameViewController() }),
         ("CTLine: LineJustify", { LineJustifyViewController() }),
         ("CTLine: PenOffset", { PenOffsetViewController() }),
-        ("CTLine: RunHighligh", { RunHighlightViewController() })
+        ("CTLine: RunHighligh", { RunHighlightViewController() }),
+        ("CTRun: ManualRunDraw", { ManualRunDrawViewController() }),
+        ("CTRun: ClickableRun", { ClickableRunViewController() }),
+        ("CTRun: MixedTextImage", { MixedTextImageViewController() })
     ]
     private let tableView = UITableView(frame: .zero, style: .plain)
 

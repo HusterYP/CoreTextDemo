@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import UIKit
+
+class ManualRunDrawViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let myView = ManualRunDrawView(frame: .init(x: 10, y: 100, width: view.bounds.width - 20, height: view.bounds.width - 20))
+        view.addSubview(myView)
+    }
+}
